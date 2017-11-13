@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRepositories\IBackendTaskRepository.cs" />
     <Compile Include="LearningMpaAbpConsts.cs" />
     <Compile Include="LearningMpaAbpCoreModule.cs" />
     <Compile Include="AppVersionHelper.cs" />
