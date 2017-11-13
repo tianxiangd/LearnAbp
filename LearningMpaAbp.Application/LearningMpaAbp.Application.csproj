@@ -140,6 +140,7 @@
       <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Linq.Dynamic.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
@@ -185,6 +186,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConsts.cs" />
+    <Compile Include="Dto\PagedAndFilteredInputDto.cs" />
+    <Compile Include="Dto\PagedAndSortedInputDto.cs" />
+    <Compile Include="Dto\PagedInputDto.cs" />
+    <Compile Include="Dto\PageSortedAndFilteredInputDto.cs" />
+    <Compile Include="IDtoMapping.cs" />
     <Compile Include="LearningMpaAbpApplicationModule.cs" />
     <Compile Include="LearningMpaAbpAppServiceBase.cs" />
     <Compile Include="Authorization\Accounts\AccountAppService.cs" />
@@ -209,6 +216,18 @@
     <Compile Include="Roles\Dto\PermissionDto.cs" />
     <Compile Include="Roles\Dto\RoleDto.cs" />
     <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="Tasks\Dtos\AssignTaskToPersonInput.cs" />
+    <Compile Include="Tasks\Dtos\CreateTaskInput.cs" />
+    <Compile Include="Tasks\Dtos\GetTasksOutput.cs" />
+    <Compile Include="Tasks\Dtos\GetTasksInput.cs" />
+    <Compile Include="Tasks\Dtos\TaskCacheItem.cs" />
+    <Compile Include="Tasks\Dtos\TaskDto.cs" />
+    <Compile Include="Tasks\Dtos\UpdateTaskInput.cs" />
+    <Compile Include="Tasks\ITaskAppService.cs" />
+    <Compile Include="Tasks\ITaskCache.cs" />
+    <Compile Include="Tasks\TaskAppService.cs" />
+    <Compile Include="Tasks\TaskCache.cs" />
+    <Compile Include="Tasks\TaskDtoMapping.cs" />
     <Compile Include="Users\Dto\CreateUserDto.cs" />
     <Compile Include="Users\Dto\UpdateUserDto.cs" />
     <Compile Include="Users\Dto\UserDto.cs" />
@@ -220,6 +239,7 @@
     <Compile Include="Sessions\ISessionAppService.cs" />
     <Compile Include="Sessions\SessionAppService.cs" />
     <Compile Include="Users\UserAppService.cs" />
+    <Compile Include="Workers\MakeInactiveUserPassiveWoker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -233,6 +253,7 @@
       <Name>LearningMpaAbp.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
