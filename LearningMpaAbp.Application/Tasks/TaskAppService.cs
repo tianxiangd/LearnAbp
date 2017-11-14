@@ -1,28 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Dynamic.Core;
-
-using System.Threading.Tasks;
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
+﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.AutoMapper;
 using Abp.Domain.Repositories;
+using Abp.Events.Bus;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Net.Mail.Smtp;
 using Abp.Notifications;
 using Abp.Runtime.Session;
-using Abp.Threading;
-using Abp.Timing;
 using AutoMapper;
 using LearningMpaAbp.Authorization;
-using LearningMpaAbp.Tasks.Dtos;
 using LearningMpaAbp.Authorization.Users;
-using LearningMpaAbp.Extensions;
-using Abp.Events.Bus;
-using Abp.Net.Mail;
+using LearningMpaAbp.Tasks.Dtos;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 
 namespace LearningMpaAbp.Tasks
 {
@@ -210,10 +203,10 @@ namespace LearningMpaAbp.Tasks
             return result;
         }
 
-        [AbpAuthorize(PermissionNames.Pages_Tasks_Delete)]
-        public void DeleteTask(int taskId)
+       
+        public void Delete(int id)
         {
-            var task = _taskRepository.Get(taskId);
+            var task = _taskRepository.Get(id);
             if (task != null)
                 _taskRepository.Delete(task);
         }

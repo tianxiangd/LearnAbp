@@ -14,6 +14,7 @@ using LearningMpaAbp.Authorization.Users;
 using LearningMpaAbp.Roles.Dto;
 using LearningMpaAbp.Users.Dto;
 using Microsoft.AspNet.Identity;
+using Abp.AutoMapper;
 
 namespace LearningMpaAbp.Users
 {
@@ -23,6 +24,7 @@ namespace LearningMpaAbp.Users
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
+        private readonly IRepository<User, long> _userRepository;
 
         public UserAppService(
             IRepository<User, long> repository, 
@@ -34,6 +36,7 @@ namespace LearningMpaAbp.Users
             _userManager = userManager;
             _roleRepository = roleRepository;
             _roleManager = roleManager;
+            _userRepository = repository;
         }
 
         public override async Task<UserDto> Get(EntityDto<long> input)
@@ -127,6 +130,14 @@ namespace LearningMpaAbp.Users
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
+        }
+        public ListResultDto<UserListDto> GetUsers()
+        {
+            var users = _userRepository.GetAllList();
+
+            return new ListResultDto<UserListDto>(
+                users.MapTo<List<UserListDto>>()
+                );
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿@using Abp.Web.Mvc.Extensions
+@model LearningMpaAbp.Web.Models.Tasks.IndexViewModel
+
+@{
+    ViewBag.Title = L("TaskList");
+    ViewBag.ActiveMenu = "TaskList"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
+}
+@section scripts{
+    @Html.IncludeScript("~/Views/Tasks/index.js");
+}
+<h2>
+    @L("TaskList")
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">Create Task</button>
+
+    <a class="btn btn-primary" data-toggle="modal" href="@Url.Action("RemoteCreate")" data-target="#modal" role="button">（Create Task）使用Remote方式调用Modal进行展现</a>
+
+    <a class="btn btn-success" href="@Url.Action("PagedList")" role="button">分页展示</a>
+
+    <button type="button" class="btn btn-info" onclick="notifyUser();">通知未完成任务的用户</button>
+    <!--任务清单按照状态过滤的下拉框-->
+    <span class="pull-right">
+        @Html.DropDownListFor(
+            model => model.SelectedTaskState,
+            Model.GetTaskStateSelectListItems(),
+            new
+            {
+                @class = "form-control select2",
+                id = "TaskStateCombobox"
+            })
+    </span>
+</h2>
+
+<!--任务清单展示-->
+<div class="row" id="taskList">
+    @{ Html.RenderPartial("_List", Model.Tasks); }
+</div>
+
+<!--通过初始加载页面的时候提前将创建任务模态框加载进来-->
+@Html.Action("Create")
+
+<!--编辑任务模态框通过ajax动态填充到此div中-->
+<div id="edit">
+
+</div>
+
+<!--Remote方式弹出创建任务模态框-->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="createTask" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>

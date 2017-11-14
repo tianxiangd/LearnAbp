@@ -23,7 +23,7 @@ namespace LearningMpaAbp.Tasks
 
         TaskDto GetTaskById(int taskId);
 
-        void DeleteTask(int taskId);
+        void Delete(int taskId);
 
         TaskCacheItem GetTaskFromCacheById(int taskId);
 
