@@ -55,5 +55,6 @@
     <text name="Yes" value="是" />
     <text name="No" value="否" />
     <text name="Optional" value="可选的" />
+    <text name="TaskList" value="任务列表" />
   </texts>
 </localizationDictionary>

@@ -137,13 +137,13 @@ namespace LearningMpaAbp.Tasks
             Logger.Info("Updating a task for input: " + input);
 
             //获取是否有权限
-            bool canAssignTaskToOther = PermissionChecker.IsGranted(PermissionNames.Pages_Tasks_AssignPerson);
-            //如果任务已经分配且未分配给自己，且不具有分配任务权限，则抛出异常
-            if (input.AssignedPersonId.HasValue && input.AssignedPersonId.Value != AbpSession.GetUserId() &&
-                !canAssignTaskToOther)
-            {
-                throw new AbpAuthorizationException("没有分配任务给他人的权限！");
-            }
+            //bool canAssignTaskToOther = PermissionChecker.IsGranted(PermissionNames.Pages_Tasks_AssignPerson);
+            ////如果任务已经分配且未分配给自己，且不具有分配任务权限，则抛出异常
+            //if (input.AssignedPersonId.HasValue && input.AssignedPersonId.Value != AbpSession.GetUserId() &&
+            //    !canAssignTaskToOther)
+            //{
+            //    throw new AbpAuthorizationException("没有分配任务给他人的权限！");
+            //}
 
             var updateTask = Mapper.Map<Task>(input);
             var user = _userRepository.Get(input.AssignedPersonId.Value);
@@ -173,32 +173,32 @@ namespace LearningMpaAbp.Tasks
             Logger.Info("Creating a task for input: " + input);
 
             //判断用户是否有权限
-            if (input.AssignedPersonId.HasValue && input.AssignedPersonId.Value != AbpSession.GetUserId())
-                PermissionChecker.Authorize(PermissionNames.Pages_Tasks_AssignPerson);
+            //if (input.AssignedPersonId.HasValue && input.AssignedPersonId.Value != AbpSession.GetUserId())
+            //    PermissionChecker.Authorize(PermissionNames.Pages_Tasks_AssignPerson);
 
             var task = Mapper.Map<Task>(input);
 
             int result = _taskRepository.InsertAndGetId(task);
 
-            //只有创建成功才发送邮件和通知
-            if (result > 0)
-            {
-                if (input.AssignedPersonId.HasValue)
-                {
-                    var user = _userRepository.Load(input.AssignedPersonId.Value);
-                    //task.AssignedPerson = user;
-                    //var message = "You hava been assigned one task into your todo list.";
+            ////只有创建成功才发送邮件和通知
+            //if (result > 0)
+            //{
+            //    if (input.AssignedPersonId.HasValue)
+            //    {
+            //        var user = _userRepository.Load(input.AssignedPersonId.Value);
+            //        //task.AssignedPerson = user;
+            //        //var message = "You hava been assigned one task into your todo list.";
 
-                    //使用领域事件触发发送通知操作
-                    _eventBus.Trigger(new TaskAssignedEventData(task, user));
+            //        //使用领域事件触发发送通知操作
+            //        _eventBus.Trigger(new TaskAssignedEventData(task, user));
 
-                    //TODO:需要重新配置QQ邮箱密码
-                    //_smtpEmailSender.Send("ysjshengjie@qq.com", task.AssignedPerson.EmailAddress, "New Todo item", message);
+            //        //TODO:需要重新配置QQ邮箱密码
+            //        //_smtpEmailSender.Send("ysjshengjie@qq.com", task.AssignedPerson.EmailAddress, "New Todo item", message);
 
-                    //_notificationPublisher.Publish("NewTask", new MessageNotificationData(message), null,
-                    //    NotificationSeverity.Info, new[] { task.AssignedPerson.ToUserIdentifier() });
-                }
-            }
+            //        //_notificationPublisher.Publish("NewTask", new MessageNotificationData(message), null,
+            //        //    NotificationSeverity.Info, new[] { task.AssignedPerson.ToUserIdentifier() });
+            //    }
+            //}
 
             return result;
         }
