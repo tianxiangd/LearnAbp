@@ -10,5 +10,6 @@ namespace LearningMpaAbp.Users
     {
         Task<ListResultDto<RoleDto>> GetRoles();
         ListResultDto<UserListDto> GetUsers();
+        PagedResultDto<UserDto> GetPagedUsers(GetUsersDto input);
     }
 }

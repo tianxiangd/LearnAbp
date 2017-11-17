@@ -15,6 +15,8 @@ using LearningMpaAbp.Authorization;
 using LearningMpaAbp.Authorization.Roles;
 using LearningMpaAbp.Users;
 using LearningMpaAbp.Web.Models.Users;
+using LearningMpaAbp.Users.Dto;
+using X.PagedList;
 
 namespace LearningMpaAbp.Web.Controllers
 {
@@ -32,7 +34,8 @@ namespace LearningMpaAbp.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var users = (await _userAppService.GetAll(new PagedResultRequestDto { MaxResultCount = int.MaxValue })).Items; //Paging not implemented yet
+            
+            var users = (await _userAppService.GetAll(new PagedResultRequestDto { MaxResultCount = 10 })).Items; //Paging not implemented yet
             var roles = (await _userAppService.GetRoles()).Items;
             var model = new UserListViewModel
             {
@@ -53,6 +56,28 @@ namespace LearningMpaAbp.Web.Controllers
                 Roles = roles
             };
             return View("_EditUserModal", model);
+        }
+        // GET: Tasks
+        public ActionResult PagedList(int? page)
+        {
+            //每页行数
+            var pageSize = 5;
+            var pageNumber = page ?? 1; //第几页
+
+            var filter = new GetUsersDto
+            {
+                SkipCount = (pageNumber - 1) * pageSize, //忽略个数
+                MaxResultCount = pageSize
+            };
+            var result = _userAppService.GetPagedUsers(filter);
+
+            // var result = _userAppService.GetAll(new PagedResultRequestDto { MaxResultCount = 10, SkipCount = pageNumber }); //Paging not implemented yet
+
+            var onePageOfUsers = new StaticPagedList<UserDto>(result.Items, pageNumber, pageSize, result.TotalCount);
+            //将分页结果放入ViewBag供View使用
+            ViewBag.OnePageOfUsers = onePageOfUsers;
+
+            return View();
         }
     }
 }

@@ -337,6 +337,7 @@
     <Compile Include="Tasks\TaskCache.cs" />
     <Compile Include="Tasks\TaskDtoMapping.cs" />
     <Compile Include="Users\Dto\CreateUserDto.cs" />
+    <Compile Include="Users\Dto\GetUsersDto.cs" />
     <Compile Include="Users\Dto\UpdateUserDto.cs" />
     <Compile Include="Users\Dto\UserDto.cs" />
     <Compile Include="Users\Dto\UserListDto.cs" />

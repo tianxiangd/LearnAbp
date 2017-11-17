@@ -139,5 +139,21 @@ namespace LearningMpaAbp.Users
                 users.MapTo<List<UserListDto>>()
                 );
         }
+        public PagedResultDto<UserDto> GetPagedUsers(GetUsersDto input)
+        {
+            //初步过滤
+            var query = _userRepository.GetAllList();
+
+            
+            //获取总数
+            var tasksCount = query.Count();
+            //默认的分页方式
+            var taskList = query.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
+
+            //ABP提供了扩展方法PageBy分页方式
+           // var taskList = query.PageBy(input).ToList();
+
+            return new PagedResultDto<UserDto>(tasksCount, taskList.MapTo<List<UserDto>>());
+        }
     }
 }

@@ -2946,6 +2946,7 @@
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Tasks\PagedList.cshtml" />
     <Content Include="Views\Tasks\_CreateTaskPartial.cshtml" />
+    <Content Include="Views\Users\PagedList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
