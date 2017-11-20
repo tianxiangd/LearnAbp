@@ -235,11 +235,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InitialDataBuilder.cs" />
     <Compile Include="LearningMpaAbpTestModule.cs" />
     <Compile Include="MultiTenantFactAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sessions\SessionAppService_Tests.cs" />
     <Compile Include="LearningMpaAbpTestBase.cs" />
+    <Compile Include="Tasks\TaskAppService_Tests.cs" />
     <Compile Include="Users\UserAppService_Tests.cs" />
   </ItemGroup>
   <ItemGroup>

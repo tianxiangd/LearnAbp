@@ -9,11 +9,10 @@ using Abp.Configuration.Startup;
 using Abp.Domain.Uow;
 using Abp.Runtime.Session;
 using Abp.TestBase;
-using LearningMpaAbp.Authorization.Users;
 using LearningMpaAbp.EntityFramework;
 using LearningMpaAbp.Migrations.SeedData;
 using LearningMpaAbp.MultiTenancy;
-using LearningMpaAbp.Users;
+using LearningMpaAbp.Authorization.Users;
 using Castle.MicroKernel.Registration;
 using Effort;
 using EntityFramework.DynamicFilters;
@@ -43,6 +42,7 @@ namespace LearningMpaAbp.Tests
             });
 
             LoginAsDefaultTenantAdmin();
+            UsingDbContext(context => new InitialDataBuilder().Build(context));
         }
 
         protected override void PreInitialize()
@@ -206,13 +206,10 @@ namespace LearningMpaAbp.Tests
             LoginAsTenant(Tenant.DefaultTenantName, User.AdminUserName);
         }
 
-        protected void LogoutAsDefaultTenant()
-        {
-            LogoutAsTenant(Tenant.DefaultTenantName);
-        }
-
         protected void LoginAsHost(string userName)
         {
+            Resolve<IMultiTenancyConfig>().IsEnabled = true;
+
             AbpSession.TenantId = null;
 
             var user =
@@ -225,14 +222,6 @@ namespace LearningMpaAbp.Tests
             }
 
             AbpSession.UserId = user.Id;
-        }
-
-        protected void LogoutAsHost()
-        {
-            Resolve<IMultiTenancyConfig>().IsEnabled = true;
-
-            AbpSession.TenantId = null;
-            AbpSession.UserId = null;
         }
 
         protected void LoginAsTenant(string tenancyName, string userName)
@@ -255,18 +244,6 @@ namespace LearningMpaAbp.Tests
             }
 
             AbpSession.UserId = user.Id;
-        }
-
-        protected void LogoutAsTenant(string tenancyName)
-        {
-            var tenant = UsingDbContext(context => context.Tenants.FirstOrDefault(t => t.TenancyName == tenancyName));
-            if (tenant == null)
-            {
-                throw new Exception("There is no tenant: " + tenancyName);
-            }
-
-            AbpSession.TenantId = tenant.Id;
-            AbpSession.UserId = null;
         }
 
         #endregion
