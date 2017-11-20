@@ -41,7 +41,10 @@ namespace LearningMpaAbp.Migrations.SeedData
                     .GetAllPermissions(new LearningMpaAbpAuthorizationProvider())
                     .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Tenant))
                     .ToList();
-
+                //task х╗оч
+                var taskPermissions =
+               PermissionFinder.GetAllPermissions(new TaskAuthorizationProvider()).ToList();
+                permissions.AddRange(taskPermissions);
                 foreach (var permission in permissions)
                 {
                     _context.Permissions.Add(

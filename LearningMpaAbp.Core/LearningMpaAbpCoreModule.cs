@@ -41,6 +41,7 @@ namespace LearningMpaAbp
             AppRoleConfig.Configure(Configuration.Modules.Zero().RoleManagement);
 
             Configuration.Authorization.Providers.Add<LearningMpaAbpAuthorizationProvider>();
+            Configuration.Authorization.Providers.Add<TaskAuthorizationProvider>();//注册TaskAuthorizationProvider
 
             Configuration.Settings.Providers.Add<AppSettingProvider>();
         }

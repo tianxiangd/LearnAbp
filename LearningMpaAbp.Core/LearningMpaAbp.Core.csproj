@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorization\TaskAuthorizationProvider.cs" />
     <Compile Include="Extensions\AbpSessionExtension.cs" />
     <Compile Include="Extensions\IAbpSessionExtension.cs" />
     <Compile Include="IRepositories\IBackendTaskRepository.cs" />
