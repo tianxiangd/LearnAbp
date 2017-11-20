@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Abp.Auditing;
+using Abp.Authorization;
 using Abp.AutoMapper;
 using LearningMpaAbp.Sessions.Dto;
 
 namespace LearningMpaAbp.Sessions
 {
+    [AbpAuthorize]
     public class SessionAppService : LearningMpaAbpAppServiceBase, ISessionAppService
     {
         [DisableAuditing]

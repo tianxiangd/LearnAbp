@@ -137,7 +137,8 @@ namespace LearningMpaAbp.Web.Controllers
             {
                 identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             }
-
+            //添加身份信息，以便在AbpSession中使用
+            identity.AddClaim(new Claim(ClaimTypes.Email, user.EmailAddress));
             _authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             _authenticationManager.SignIn(new AuthenticationProperties { IsPersistent = rememberMe }, identity);
         }

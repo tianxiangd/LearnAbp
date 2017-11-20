@@ -7,6 +7,7 @@ using LearningMpaAbp.Authorization.Users;
 using LearningMpaAbp.MultiTenancy;
 using LearningMpaAbp.Users;
 using Microsoft.AspNet.Identity;
+using LearningMpaAbp.Extensions;
 
 namespace LearningMpaAbp
 {
@@ -18,6 +19,8 @@ namespace LearningMpaAbp
         public TenantManager TenantManager { get; set; }
 
         public UserManager UserManager { get; set; }
+
+        //public new IAbpSessionExtension AbpSession { get; set; }
 
         protected LearningMpaAbpAppServiceBase()
         {
